@@ -1,0 +1,58 @@
+public class Solution {
+    // public int findMinDifference(List<String> timePoints) {
+        // list use get, wrong understand of description
+        // String aStr = timePoints.get(0);
+        // String bStr = timePoints.get(1);
+        // String [] a = (aStr.split(":"));
+        // String [] b = (bStr.split(":"));
+        // int hour1 = Integer.parseInt(a[0]);
+        // int hour2 = Integer.parseInt(b[0]);
+        // int minute1 = Integer.parseInt(a[1]);
+        // int minute2 = Integer.parseInt(b[1]);
+        // int res;
+        // if (Math.abs(hour1 - hour2) > 12){
+        //     if (hour1 < hour2){
+        //         res = (hour1 + 24) * 60 + minute1 - hour2 * 60 - minute2;
+        //     }
+        //     else{
+        //         res = (hour2 + 24) * 60 + minute2 - hour1 * 60 - minute1;
+        //     }
+        // }
+        // else{
+        //     if (hour1 < hour2){
+        //         res = hour1 * 60 + minute1 - hour2 * 60 - minute2;
+        //     }
+        //     else{
+        //         res = hour2 * 60 + minute2 - hour1 * 60 - minute1;
+        //     }
+        // }
+        // return Math.abs(res);
+    // }
+    
+    
+    public int findMinDifference(List<String> timePoints) {
+        int[] timeRevert = new int[timePoints.size()];
+        for (int i = 0; i < timePoints.size(); i++) {
+            String timePoint = timePoints.get(i);
+            String[] timeParts = timePoint.split(":");
+            int hour = Integer.valueOf(timeParts[0].trim());
+            int minute = Integer.valueOf(timeParts[1].trim());
+            int revert = hour * 60 + minute;
+            timeRevert[i] = revert;
+        }
+        Arrays.sort(timeRevert);
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < timeRevert.length; i++) {
+            if (i < timeRevert.length - 1) {
+                if (timeRevert[i + 1] - timeRevert[i] < min) {
+                    min = timeRevert[i + 1] - timeRevert[i];
+                }
+            } else {
+                if (timeRevert[0] + 24 * 60 - timeRevert[i] < min) {
+                    min = timeRevert[0] + 24 * 60 - timeRevert[i];
+                }
+            }
+        }
+        return min;
+    }
+}

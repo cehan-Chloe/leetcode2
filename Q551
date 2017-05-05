@@ -1,0 +1,30 @@
+public class Solution {
+    public boolean checkRecord(String s) {
+        int len = s.length();
+        if (s == null || len == 0){
+            return true;
+        }
+        int Anum = 0;
+        int Lnum = 0;
+        for (int i = 0; i < len; i ++){
+            if (s.charAt(i) == 'A'){
+                Anum ++;
+                Lnum = 0;
+            }
+            if (s.charAt(i) == 'L'){
+                Lnum++;
+            }
+            if (s.charAt(i) == 'P'){
+                Lnum = 0;
+            }
+            if (Lnum > 2){
+                return false;
+            }
+        }
+        System.out.println(Anum);
+        if (Anum > 1){
+            return false;
+        }
+        return true;
+    }
+}

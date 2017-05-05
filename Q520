@@ -1,0 +1,15 @@
+public class Solution {
+    public boolean detectCapitalUse(String word) {
+        char[] strArr = word.toCharArray();
+        int num = 0;
+        for (int i = 0; i < strArr.length; i ++){
+            if (strArr[i] <= 'Z' && strArr[i] >= 'A'){
+                num ++;
+            }
+        }
+        if ((num >= 2 && num < strArr.length) || (num == 1 && (strArr[0] > 'Z' || strArr[0] < 'A'))){
+            return false;
+        }
+        return true;
+    }
+}

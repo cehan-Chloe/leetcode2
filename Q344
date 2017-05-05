@@ -1,0 +1,38 @@
+public class Solution {
+    public String reverseString(String s) {
+        
+        if (s == null || s.length() == 0){
+            return s;
+        }
+        // method1 beat 22.4%
+        char[] str = s.toCharArray();
+        int len = str.length;
+        StringBuilder sb = new StringBuilder();
+        for(int i = len - 1; i >= 0; i --){
+            sb.append(str[i]);
+        }
+        return sb.toString();
+        
+        // method2 beat 8.94%
+        int len = s.length();
+        StringBuilder sb = new StringBuilder();
+        for (int i = len - 1; i >= 0; i --){
+            sb.append(s.charAt(i));
+        }
+        return sb.toString();
+        
+        
+        // method3 beat 56.6%
+        char[] word = s.toCharArray();
+        int i = 0;
+        int j = s.length() - 1;
+        while (i < j) {
+            char temp = word[i];
+            word[i] = word[j];
+            word[j] = temp;
+            i++;
+            j--;
+        }
+        return new String(word);
+    }
+}
