@@ -1,0 +1,25 @@
+public class Solution {
+    public String simplifyPath(String path) {
+        Stack<String> st = new Stack<>();
+        Set<String> skip = new HashSet<>(Arrays.asList("..",".",""));
+        String[] pArr = path.split("\\/");
+        for (int i = 0; i < pArr.length; i ++){
+            System.out.println(pArr[i]);
+            if (pArr[i].equals("..") && !st.empty()){
+                st.pop();
+            }
+            else if (!skip.contains(pArr[i])){
+                st.push(pArr[i]);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        if (st.empty()){
+            return "/";
+        }
+        while(!st.empty()){
+            sb.insert(0, st.pop());
+            sb.insert(0, "/");
+        }
+        return sb.toString();
+    }
+}

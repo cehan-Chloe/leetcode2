@@ -1,0 +1,40 @@
+public class Solution {
+    public boolean trailZero(String[] arr, int i){
+        while(i < arr.length){
+            if (Integer.parseInt(arr[i]) != 0){
+                return true;
+            }
+            else {
+                i ++;
+            }
+        }
+        return false;
+    }
+    
+    public int compareVersion(String version1, String version2) {
+        String[] arr1 = version1.split("\\.");
+        String[] arr2 = version2.split("\\.");
+        int i = 0;
+        // first wrong answer, 1.0, 1 the result should be 0, they are equalled.
+        while(i < arr1.length && i < arr2.length){
+            if (Integer.parseInt(arr1[i]) > Integer.parseInt(arr2[i])){
+                return 1;
+            }
+            else if (Integer.parseInt(arr1[i]) < Integer.parseInt(arr2[i])){
+                return -1;
+            }
+            else{
+                i ++;
+            }
+        }
+        if (i < arr1.length && trailZero(arr1, i)){
+            return 1;
+        }
+        else if (i < arr2.length && trailZero(arr2, i)){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+    }
+}
