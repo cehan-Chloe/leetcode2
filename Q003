@@ -1,0 +1,46 @@
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if (s == null || s.length() == 0){
+            return 0;
+        }
+        if (s.length() == 1){
+            return 1;
+        }
+        int max = 0;
+        int slow = 0;
+        int fast = 1;
+        int count = 1;
+        while (slow < s.length()){
+            StringBuilder sb = new StringBuilder();
+            sb.append(s.charAt(slow));
+            while (fast < s.length() && sb.indexOf(s.charAt(fast) + "") == -1){
+                sb.append(s.charAt(fast));
+                count ++;
+                fast ++;
+            }
+            if (count > max){
+                max = count;
+            }
+            slow ++;
+            fast = slow + 1;
+            count = 1;
+        }
+        return max;
+    }
+public int lengthOfLongestSubstring(String s) {
+    int i = 0, j = 0, max = 0;
+    Set<Character> set = new HashSet<>();
+    
+    while (j < s.length()) {
+        if (!set.contains(s.charAt(j))) {
+            set.add(s.charAt(j++));
+            max = Math.max(max, set.size());
+        } else {
+            set.remove(s.charAt(i++));
+        }
+    }
+    
+    return max;
+}
+
+}

@@ -1,0 +1,41 @@
+public class Solution {
+    public int calculate(String s) {
+        if (s == null || s.length() == 0){
+            return -1;
+        }
+        char[] arr = s.toCharArray();
+        Stack<Integer> st = new Stack<>();
+        int i = 0;
+        char operator = '+';
+        int num = 0;
+        while (i < arr.length){
+            if (Character.isDigit(arr[i])){
+                num = num * 10 + arr[i] - '0';
+            }
+            if (!Character.isDigit(arr[i]) && arr[i] != ' ' || i == arr.length - 1){
+                if (operator == '+' ){
+                    st.push(num);
+                }
+                if (operator == '-'){
+                    st.push(-num);
+                }
+                if (operator == '*' && !st.empty()){
+                    int tmp = st.pop() * num;
+                    st.push(tmp);
+                }
+                if (operator == '/' && !st.empty() && num != 0){
+                    int tmp = st.pop() / num;
+                    st.push(tmp);
+                }
+                operator = arr[i];
+                num = 0;
+            }
+            i ++;
+        }
+        int res = 0;
+        for(int o:st){
+            res += o;
+        }
+        return res;
+    }
+}
