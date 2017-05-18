@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode partition(ListNode head, int x) {
+        if (head == null){
+            return head;
+        }
+        ListNode dummyHead = new ListNode(0);
+        dummyHead.next = head;
+        ListNode slow = dummyHead;
+        ListNode fast = dummyHead;
+        
+        int i = 0;
+        while(fast.next != null){
+            i ++;
+            fast = fast.next;
+        }
+        for (; i > 0; i --){
+            if (slow.next.val >= x){
+                fast.next = slow.next;
+                slow.next = slow.next.next;
+                fast = fast.next;
+                fast.next = null;
+                System.out.println(fast.val);
+            }else{
+                slow = slow.next;
+            }
+        }
+        return dummyHead.next;
+    }
+}
+
+
+//
+ListNode dummy1 = new ListNode(0), dummy2 = new ListNode(0);  //dummy heads of the 1st and 2nd queues
+    ListNode curr1 = dummy1, curr2 = dummy2;      //current tails of the two queues;
+    while (head!=null){
+        if (head.val<x) {
+            curr1.next = head;
+            curr1 = head;
+        }else {
+            curr2.next = head;
+            curr2 = head;
+        }
+        head = head.next;
+    }
+    curr2.next = null;          //important! avoid cycle in linked list. otherwise u will get TLE.
+    curr1.next = dummy2.next;
+    return dummy1.next;

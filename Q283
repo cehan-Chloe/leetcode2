@@ -1,0 +1,41 @@
+public class Solution {
+    public void moveZeroes(int[] nums) {
+        int slow = 0;
+        int fast = 0;
+        while(slow < nums.length){
+            while (nums[slow] != 0){
+                slow ++;
+                if (slow >= nums.length){
+                    return;
+                }
+            }
+            fast = slow + 1;
+            while (fast < nums.length && nums[fast] == 0){
+                fast ++;
+            }
+            if (fast < nums.length){
+                nums[slow] = nums[fast];
+                nums[fast] = 0;
+                slow ++;
+            }else{
+                return;
+            }
+        }
+    }
+}
+
+// Shift non-zero values as far forward as possible
+// Fill remaining space with zeros
+
+public void moveZeroes(int[] nums) {
+    if (nums == null || nums.length == 0) return;        
+
+    int insertPos = 0;
+    for (int num: nums) {
+        if (num != 0) nums[insertPos++] = num;
+    }        
+
+    while (insertPos < nums.length) {
+        nums[insertPos++] = 0;
+    }
+}

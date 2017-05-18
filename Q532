@@ -1,0 +1,45 @@
+public class Solution {
+    public int findPairs(int[] nums, int k) {
+        // unique pair fail
+        // if (nums == null || nums.length <= 1){
+        //     return 0;
+        // }
+        // Arrays.sort(nums);
+        // int slow = 0;
+        // int fast = 0;
+        // int count = 0;
+        // while(slow < nums.length){
+        //     fast = Math.max(fast + 1,slow + 1);
+        //     while (fast < nums.length && nums[fast] - nums[slow] < k && (nums[fast] != nums[slow] || k == 0)){
+        //         if (nums[fast] - nums[slow] == k){
+        //             count ++;
+        //             break;
+        //         }
+        //         else{
+        //             fast ++;
+        //         }
+        //     }
+        //     slow ++;
+        // }
+        // return count;
+        
+        
+        
+        Arrays.sort(nums);
+
+        int start = 0, end = 1, result = 0;
+        while (start < nums.length && end < nums.length) {
+            if (start == end || nums[start] + k > nums[end]) {
+                end++;
+            } else if (nums[start] + k < nums[end]) {
+                start++;
+            } else {
+                start++;
+                result++;
+                while (start < nums.length && nums[start] == nums[start - 1]) start++;
+                end = Math.max(end + 1, start + 1);
+            }
+        }
+        return result;
+    }
+}
