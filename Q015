@@ -1,0 +1,41 @@
+c class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0){
+            return res;
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i ++){
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            twoSum(nums, i + 1, nums.length - 1, -nums[i], res);
+        }
+        return res;
+    }
+    
+    public void twoSum(int[] nums, int left, int right, int target, List<List<Integer>> res){
+        while (left < right){
+            if (nums[left] + nums[right] == target){
+                List<Integer> ans = new ArrayList<>();
+                ans.add(nums[left]);
+                ans.add(nums[right]);
+                ans.add(-target);
+                res.add(ans);
+                left ++;
+                right --;
+                while (left < right && nums[left] == nums[left - 1]){
+                    left ++;
+                    System.out.println("while");
+                }
+                while (left < right && nums[right] == nums[right + 1]){
+                    right --;
+                }
+            }else if(nums[left] + nums[right] < target){
+                left ++;
+            }else{
+                right --;
+            }
+        }
+    }
+}
