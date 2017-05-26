@@ -1,0 +1,27 @@
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums == null || nums.length <= 2){
+            return nums.length;
+        }
+        // 1. two pointer
+        // 2. count 
+        int slow = 0;
+        int fast = 1;
+        int count = 0;
+        while (fast < nums.length){
+            if (nums[slow] == nums[fast] && count < 1){
+                count ++;
+                nums[++slow] = nums[fast];
+            }
+            else if (nums[slow] != nums[fast]){
+                count = 0;
+                nums[++slow] = nums[fast];
+            }
+            else if (nums[slow] == nums[fast] && count >= 1){
+                count ++;
+            }
+            fast ++;
+        }
+        return slow + 1;
+    }
+}

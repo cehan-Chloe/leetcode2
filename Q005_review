@@ -1,0 +1,40 @@
+public class Solution {
+    public String longestPalindrome(String s) {
+        // 1. length <= 1 to provent "a" 
+        if (s == null || s.length() <= 1){
+            return s;
+        }
+        int maxLen = 0;
+        int start = 0;
+        // 2. s.charAt(i) is a pivot and has two formats of palindrome
+        for (int i = 1; i < s.length(); i ++){
+            // odd length
+            int low = i - 1;
+            int high  = i + 1;
+            
+            while (low >= 0 && high < s.length() && s.charAt(low) == s.charAt(high)){
+                low --;
+                high ++;
+            }
+            if (high - low - 1 > maxLen){
+                start = low + 1;
+                maxLen = high - low - 1;
+            }
+            
+            // even length
+            low = i - 1;
+            high = i;
+            
+            while (low >= 0 && high < s.length() && s.charAt(low) == s.charAt(high)){
+                low --;
+                high ++;
+            }
+            if (high - low - 1 > maxLen){
+                start = low + 1;
+                maxLen = high - low - 1;
+            }
+        }
+        
+        return s.substring(start, start + maxLen);
+    }
+}

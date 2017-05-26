@@ -1,0 +1,40 @@
+public class Solution {
+    public int calculate(String s) {
+        if (s == null || s.length() == 0){
+            return -1;
+        }
+        // 1. use stack
+        Stack<Integer> st = new Stack<>();
+        int num = 0;
+        char op  = '+';
+        for (int i = 0; i < s.length(); i ++){
+            if (Character.isDigit(s.charAt(i))){
+                num = num * 10 + (s.charAt(i) - '0');
+            }
+            
+            // 2. i == s.length() - 1, the last number condition 
+            if (!Character.isDigit(s.charAt(i)) && s.charAt(i) != ' ' || i == s.length() - 1){
+                if (op == '+'){
+                    st.push(num);
+                }
+                if (op == '-'){
+                    st.push(-num);
+                }
+                if (op == '*' && !st.empty()){
+                    st.push(st.pop() * num);
+                }
+                if (op == '/' && !st.empty() && num != 0){
+                    st.push(st.pop() / num);
+                }
+                op = s.charAt(i);
+                num = 0;
+            }
+        }
+        int res = 0;
+        for (int t: st){
+            res += t;
+        }
+        return res;
+	// 3. charArray is more efficient than charAt
+    }
+}
