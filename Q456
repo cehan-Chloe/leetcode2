@@ -1,0 +1,36 @@
+public class Solution {
+    public boolean find132pattern(int[] nums) {
+        // First method: TLE
+        // if (nums.length < 3){
+        //     return false;
+        // }
+        // int start = 0;
+        // int end;
+        // while (start < nums.length - 1){
+        //     end = nums.length - 1;
+        //     while(start < end){
+        //         while (nums[end] <= nums[start] && end > start){
+        //             end --;
+        //         }
+        //         for (int i = start + 1; i < end; i ++){
+        //             if (nums[i] > nums[start] && nums[i] > nums[end]){
+        //                 return true;
+        //             }
+        //         }
+        //         end --;
+        //     }
+        //     start ++;
+        // }
+        // return false;
+        
+        for (int j = 0, min = Integer.MAX_VALUE; j < nums.length; j++) {
+            min = Math.min(nums[j], min);
+            if (min == nums[j]) continue;
+         
+            for (int k = nums.length - 1; k > j; k--) {
+                if (min < nums[k] && nums[k] < nums[j]) return true;
+            }
+        }
+        return false;
+    }
+}

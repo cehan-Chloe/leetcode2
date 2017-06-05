@@ -1,0 +1,21 @@
+public class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int len = nums.length;
+        int[] res = new int[len];
+        for (int i = 0; i < len; i ++){
+            int j = 1;
+            while(j < len){
+                int index = (i + j) % len;
+                if (nums[index] > nums[i]){
+                    res[i] = nums[index];
+                    break;
+                } 
+                j ++;
+            }
+            if (j == len){
+                res[i] = -1;
+            }
+        }
+        return res;
+    }
+}
