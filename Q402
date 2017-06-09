@@ -6,7 +6,7 @@ public class Solution {
         Stack<Character> st = new Stack<>();
         int i = 0;
         while(i < num.length()){
-            if (!st.isEmpty() && num.charAt(i) < st.peek() && k > 0){
+            while (!st.isEmpty() && num.charAt(i) < st.peek() && k > 0){
                 st.pop();
                 k --;
             }
