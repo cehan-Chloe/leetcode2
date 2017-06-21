@@ -1,0 +1,104 @@
+/**
+ * // This is the interface that allows for creating nested lists.
+ * // You should not implement it, or speculate about its implementation
+ * public interface NestedInteger {
+ *
+ *     // @return true if this NestedInteger holds a single integer, rather than a nested list.
+ *     public boolean isInteger();
+ *
+ *     // @return the single integer that this NestedInteger holds, if it holds a single integer
+ *     // Return null if this NestedInteger holds a nested list
+ *     public Integer getInteger();
+ *
+ *     // @return the nested list that this NestedInteger holds, if it holds a nested list
+ *     // Return null if this NestedInteger holds a single integer
+ *     public List<NestedInteger> getList();
+ * }
+ */
+public class NestedIterator implements Iterator<Integer> {
+    // private Stack<NestedInteger> st;
+    
+    // public NestedIterator(List<NestedInteger> nestedList) {
+    //     st = new Stack<>();
+    //     Stack<NestedInteger> tmp = new Stack<>();
+        
+    //     for (NestedInteger n: nestedList){
+    //         tmp.push(n);
+    //     }
+        
+    //     while(!tmp.isEmpty()){
+    //         System.out.println(tmp.peek().getList());
+    //         st.push(tmp.pop());
+    //     }
+    // }
+
+    // @Override
+    // public Integer next() {
+    //     if (!hasNext()){
+    //         return null;
+    //     }
+    //     return st.pop().getInteger();
+    // }
+
+    // @Override
+    // public boolean hasNext() {
+    //     if (!st.isEmpty() && !st.peek().isInteger()){
+    //         Stack<NestedInteger> tmp = new Stack<>();
+    //         List<NestedInteger> l = st.pop().getList();
+    //         for (NestedInteger n: l){
+    //             tmp.push(n);
+    //         }
+            
+    //         while(!tmp.isEmpty()){
+    //             st.push(tmp.pop());
+    //         }
+    //     }
+        
+    //     System.out.println(st.peek().getInteger());
+    //     return !st.isEmpty();
+    // }
+    
+    private Stack<NestedInteger> stack;
+    
+    private void pushListToStack(List<NestedInteger> nestedList) {
+        Stack<NestedInteger> temp = new Stack<>();
+        for (NestedInteger nested : nestedList) {
+            temp.push(nested);
+        }
+        
+        while (!temp.isEmpty()) {
+            stack.push(temp.pop());
+        }
+    }
+    
+    public NestedIterator(List<NestedInteger> nestedList) {
+        stack = new Stack<>();
+        pushListToStack(nestedList);
+    }
+
+    // @return {int} the next element in the iteration
+    @Override
+    public Integer next() {
+        if (!hasNext()) {
+            return null;
+        }
+        return stack.pop().getInteger();
+    }
+
+    // @return {boolean} true if the iteration has more element or false
+    @Override
+    public boolean hasNext() {
+        while (!stack.isEmpty() && !stack.peek().isInteger()) {
+            pushListToStack(stack.pop().getList());
+        }
+        
+        return !stack.isEmpty();
+    }
+
+}
+
+/**
+ * Your NestedIterator object will be instantiated and called as such:
+ * NestedIterator i = new NestedIterator(nestedList);
+ * while (i.hasNext()) v[f()] = i.next();
+ */
