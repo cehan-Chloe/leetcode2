@@ -18,7 +18,7 @@ public class Solution {
             }
             cols.add(colIndex);
             search(results, cols, n);
-            // cols.remove(cols.size() - 1);
+            cols.remove(cols.size() - 1);
         }
     }
     
