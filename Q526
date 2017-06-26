@@ -1,0 +1,22 @@
+public class Solution {
+    int count = 0;
+    public int countArrangement(int N) {
+        int[] arr = new int[N + 1];
+        helper(arr, N, 1);
+        return count;
+    }
+    
+    private void helper(int[] arr, int N, int pos){
+        if (pos > N){
+            count ++;
+            return;
+        }
+        for(int i = 1; i <= N; i ++){
+            if (arr[i] == 0 && (i % pos == 0 || pos % i == 0)){
+                arr[i] = 1;
+                helper(arr, N, pos + 1);
+                arr[i] = 0;
+            }
+        }
+    }
+}
