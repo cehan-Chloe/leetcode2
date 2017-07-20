@@ -1,0 +1,23 @@
+public class Solution {
+    public int calculate(int n){
+        int sum = 0;
+        while(n > 0){
+            sum += (n % 10) * (n % 10) ;
+            n /= 10;
+        }
+        System.out.println(sum);
+        return sum;
+    }
+    public boolean isHappy(int n) {
+        Set<Integer> set = new HashSet<>();
+        while(n != 1){
+            int tmp = calculate(n);
+            if (set.contains(tmp)){
+                return false;
+            }
+            set.add(tmp);
+            n = tmp;
+        }
+        return true;
+    }
+}
