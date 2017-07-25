@@ -1,0 +1,20 @@
+public class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        helper(n, 0, 0, "", res);
+        return res;
+    }
+    public void helper(int n, int left, int right, String cur, List<String> res){
+        if (left == n && right == n){
+            res.add(cur);
+            cur = "";
+            return;
+        }
+        if (left < n){
+            helper(n, left + 1, right, cur + "(", res);
+        }
+        if (left > right){
+            helper(n, left, right + 1, cur + ")", res);
+        }
+    }
+}
