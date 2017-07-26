@@ -1,0 +1,31 @@
+public class Solution {
+    public int myAtoi(String str) {
+        if (str.length() == 0){
+            return 0;
+        }
+        // still do not understand why "  +0 123" -> 0 not 123
+        // // remove all whitespaces
+        // str = str.replaceAll("\\s+", "");
+        int res = 0;
+        int sign = 1;
+        int index = 0;
+        while(str.charAt(index) == ' ' && index < str.length())
+            index ++;
+        if(str.charAt(index) == '+' || str.charAt(index) == '-'){
+            sign = str.charAt(index) == '+' ? 1 : -1;
+            index ++;
+        }
+        while(index < str.length()){
+            int ch = str.charAt(index) - '0';
+            if(ch < 0 || ch > 9) {
+                break;
+            }
+            if(Integer.MAX_VALUE / 10 < res || Integer.MAX_VALUE/10 == res && Integer.MAX_VALUE % 10 < ch){
+                return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            }
+            res = res * 10 + ch;
+            index ++;
+        }
+        return res * sign;
+    }
+}

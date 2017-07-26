@@ -1,0 +1,18 @@
+public class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        // typical backtracking question
+        List<List<Integer>> res = new ArrayList<>();
+        helper(nums, 0, new ArrayList<>(), res);
+        return res;
+    }
+    public void helper(int[] nums, int pos, List<Integer> cur, List<List<Integer>> res){
+        // add first
+        List<Integer> tmp = new ArrayList<>(cur);
+        res.add(tmp);
+        for (int i = pos; i < nums.length; i ++){
+            cur.add(nums[i]);
+            helper(nums, i + 1, cur, res);
+            cur.remove(cur.size() - 1);
+        }
+    }
+}
