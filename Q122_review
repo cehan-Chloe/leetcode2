@@ -1,0 +1,25 @@
+public class Solution {
+    public int maxProfit(int[] prices) {
+        int max = 0;
+        int index = 0;
+        while(index < prices.length){
+            while (index + 1 < prices.length && prices[index] > prices[index + 1]){
+                index ++;
+            }
+            int low = index;
+            index ++;
+            while (index + 1 < prices.length && prices[index] < prices[index + 1]){
+                index ++;
+            }
+            int high = index;
+            if(high >= prices.length){
+                max += prices[prices.length - 1] - prices[low];
+                return max;
+            } else{
+                max += prices[high] - prices[low];
+                index ++;
+            }
+        }
+        return max;
+    }
+}

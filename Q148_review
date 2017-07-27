@@ -11,55 +11,60 @@ public class Solution {
         if (head == null || head.next == null){
             return head;
         }
-        
+        // 1. find mid listNode
         ListNode mid = findMid(head);
         ListNode rhead = mid.next;
-        
         mid.next = null;
         
+        // 2. sort left and right list seperately.
         head = sortList(head);
         rhead = sortList(rhead);
         
+        // 3. merge sorted lists
         return merge(head, rhead);
     }
     
+    // input: ListNode head
+    // output: ListNode mid 
     public ListNode findMid(ListNode head){
         if (head == null){
             return head;
         }
-        ListNode fast = head.next;
         ListNode slow = head;
-        while (fast != null && fast.next != null){
-            slow = slow.next;
+        ListNode fast = head.next;
+        while(fast != null && fast.next != null){
             fast = fast.next.next;
+            slow = slow.next;
         }
         return slow;
     }
     
-    public ListNode merge(ListNode left, ListNode right){
-        if (left == null){
-            return right;
+    // input: ListNode left head & ListNode right head
+    // output: new head
+    public ListNode merge(ListNode lhead, ListNode rhead){
+        if (lhead == null){
+            return rhead;
         }
-        if (right == null){
-            return left;
+        if (rhead == null){
+            return lhead;
         }
         ListNode dummy = new ListNode(0);
         ListNode p = dummy;
-        while(left != null && right != null){
-            if (left.val < right.val){
-                p.next = left;
-                left = left.next;
-            }else {
-                p.next = right;
-                right = right.next;
+        while (lhead != null && rhead != null){
+            if (lhead.val < rhead.val){
+                p.next = lhead;
+                lhead = lhead.next;
+            } else{
+                p.next = rhead;
+                rhead = rhead.next;
             }
             p = p.next;
         }
-        if (left != null){
-            p.next = left;
+        if (lhead != null){
+            p.next = lhead;
         }
-        if (right != null){
-            p.next = right;
+        if (rhead != null){
+            p.next = rhead;
         }
         return dummy.next;
     }

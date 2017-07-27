@@ -1,0 +1,19 @@
+public class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] res = new int[nums.length];
+        res[0] = 1;
+        int i = 1;
+        while(i < nums.length){
+            res[i] = res[i - 1] * nums[i - 1];
+            i ++;
+        }
+        i --;
+        int product = 1;
+        while(i >= 0){
+            res[i] *= product;
+            product *= nums[i];
+            i --;
+        }
+        return res;
+    }
+}

@@ -1,0 +1,11 @@
+public class Solution {
+    public int getSum(int a, int b) {
+        // & and operator get carry, ^ xor operator get the sum without carry
+        while(b != 0){
+            int carry = a & b;
+            a = a ^ b;
+            b = carry << 1;
+        }
+        return a;
+    }
+}
