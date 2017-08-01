@@ -1,0 +1,35 @@
+public class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        List<Integer> res = new ArrayList<>();
+        if (nums == null || nums.length == 0){
+            return res;
+        }
+        // 1. hashmap store the element, count pair
+        Map<Integer, Integer> countMap = new HashMap<>();
+        for (int i : nums){
+            if (!countMap.containsKey(i)){
+                countMap.put(i, 1);
+            } else {
+                countMap.put(i, countMap.get(i) + 1);
+            }
+        }
+        
+        // 2. bucket sort
+        List<Integer>[] bucket = new List[nums.length + 1];
+        for (int i : countMap.keySet()){
+            int count = countMap.get(i);
+            if (bucket[count] == null){
+                bucket[count] = new ArrayList<>();
+            }
+            bucket[count].add(i);
+        }
+        
+        // 3. get the element in inverse order
+        for (int i = bucket.length - 1; i >= 0 && res.size() < k; i --){
+            if (bucket[i] != null){
+                res.addAll(bucket[i]);
+            }
+        }
+        return res;
+    }
+}
