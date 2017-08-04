@@ -1,0 +1,60 @@
+public class Solution {
+
+    public void setZeroes (int[][] matrix) {
+        // 1. Check if the first row and col need to be set zeros.
+        boolean emptyRow = false;
+        boolean emptyCol = false;
+        for (int i = 0; i < matrix[0].length; i ++) {
+            if (matrix[0][i] == 0) {
+                emptyRow = true;
+                break;
+            }
+        }
+        for (int i = 0; i < matrix.length; i ++) {
+            if (matrix[i][0] == 0) {
+                emptyCol = true;
+                break;
+            }
+        }
+        
+        // 2. Traverse other rows and cols, use first element of col and row to store the info.
+        for (int i = 1; i < matrix.length; i ++) {
+            for (int j = 1; j < matrix[0].length; j ++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+        
+        // 3. Set zeros.
+        for (int i = 1; i < matrix.length; i ++) {
+            if (matrix[i][0] == 0) {
+                for (int j = 1; j < matrix[0].length; j ++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        
+        for (int i = 1; i < matrix[0].length; i ++) {
+            if (matrix[0][i] == 0) {
+                for (int j = 1; j < matrix.length; j ++) {
+                    matrix[j][i] = 0;
+                }
+            }
+        }
+        
+        // 4. Set the first col and first row.
+        if (emptyRow) {
+            for (int i = 0; i < matrix[0].length; i ++) {
+                matrix[0][i] = 0;
+            }
+        }
+        
+        if (emptyCol) {
+            for (int i = 0; i < matrix.length; i ++) {
+                matrix[i][0] = 0;
+            }
+        }
+    }
+}
