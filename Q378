@@ -1,0 +1,28 @@
+public class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int low = matrix[0][0];
+        int high = matrix[m - 1][n - 1];
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            int count = 0;
+            int j = n - 1;
+            // the row is sorted, so first compare the last element of the row
+            // find nth row that the last one > mid, then find how many elements of this row <= mid and change the value of j(location)
+            // because the cols are also sorted, we only need to check 0 -> j element of (n+1) row
+            for (int i = 0; i < m; i ++) {
+                while (j >= 0 && matrix[i][j] > mid) {
+                    j --;
+                }
+                count += j + 1;
+            }
+            if (count < k) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+}
