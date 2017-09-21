@@ -1,0 +1,28 @@
+class Solution {
+    public int trap(int[] height) {
+        if (height == null || height.length < 2) {
+            return 0;
+        }
+        int size = height.length;
+        int[] maxL = new int[size];
+        int[] maxR = new int[size];
+        
+        int max = height[0];
+        maxL[0] = 0;
+        for (int i = 1; i < size - 1; i ++) {
+            maxL[i] = max;
+            max = Math.max(max, height[i]);
+        }
+        
+        max = height[size - 1];
+        maxR[size - 1] = 0;
+        int res = 0;
+        for (int j = size - 2; j >= 0; j --) {
+            maxR[j] = max;
+            max = Math.max(max, height[j]);
+            int tmp = Math.min(maxL[j], maxR[j]) - height[j];
+            res += tmp > 0 ? tmp : 0;
+        }
+        return res;
+    }
+}
