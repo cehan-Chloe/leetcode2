@@ -1,0 +1,13 @@
+/*The key of this problem is the student key is not primary, so the table may have two identical rows.
+Using DISTINCT would solve this problem.*/
+select class
+from courses
+group by class
+having count(distinct student) >= 5;
+
+/*
+select class from (
+select count(distinct student) as num,class from courses
+group by class) as temp
+where num>=5
+*/

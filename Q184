@@ -1,0 +1,15 @@
+
+/* this is incorrect because the database dont know the corresponding employee name of the max salary
+SELECT D.NAME AS DEPARTMENT, E.NAME AS EMPLOYEE, MAX(SALARY) AS SALARY
+FROM EMPLOYEE E
+JOIN DEPARTMENT D ON E.DEPARTMENTID = D.ID
+GROUP BY E.DEPARTMENTID */
+
+SELECT D.Name AS Department ,E.Name AS Employee ,E.Salary 
+FROM
+	Employee E,
+	(SELECT DepartmentId,max(Salary) as max FROM Employee GROUP BY DepartmentId) T,
+	Department D
+WHERE E.DepartmentId = T.DepartmentId 
+  AND E.Salary = T.max
+  AND E.DepartmentId = D.id

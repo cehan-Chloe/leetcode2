@@ -1,0 +1,22 @@
+/*select distinct d1.id, d1.date, d1.people
+from stadium d1, stadium d2, stadium d3
+where ((datediff(d2.date, d1.date) = 1 and datediff(d3.date, d2.date) = 1) or (datediff(d1.date, d2.date) = 1 and datediff(d2.date, d3.date) = 1) or (datediff(d1.date, d2.date) = 1 and datediff(d3.date, d1.date) = 1))
+and d1.people >= 100 and d2.people >= 100 and d3.people >= 100
+order by d1.id */
+
+SELECT  distinct s1.id, s1.date, s1.people FROM stadium AS s1, stadium AS s2, stadium as s3
+    WHERE 
+    ((s1.id + 1 = s2.id
+    AND s1.id + 2 = s3.id)
+    OR 
+    (s1.id - 1 = s2.id
+    AND s1.id + 1 = s3.id)
+    OR
+    (s1.id - 2 = s2.id
+    AND s1.id - 1 = s3.id)
+    )
+    AND s1.people>=100 
+    AND s2.people>=100
+    AND s3.people>=100
+
+    order BY s1.id
